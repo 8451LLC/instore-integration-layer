@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: instore-integration-layer
+
+ent-client-service:
+  uri: ${ENT_CLIENT_SERVICE}
+
+info:
+  app:
+    name: '@project.artifactId@'
+    description: '@project.description@'
+    version: '@project.version@'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
