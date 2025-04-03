@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ValidationErrorResponse> handleValidationException(WebExchangeBindException ex) {
         List<FieldErrorDetail> errors = ex.getFieldErrors().stream()
                 .map(error -> new FieldErrorDetail(error.getField(), error.getDefaultMessage()))
-                .collect(Collectors.toList());
+                .toList();
 
         return ResponseEntity.badRequest().body(new ValidationErrorResponse(400, "Validation failed", errors));
     }
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ValidationErrorResponse> handleConstraintViolationException(ConstraintViolationException ex) {
         List<FieldErrorDetail> errors = ex.getConstraintViolations().stream()
                 .map(error -> new FieldErrorDetail(error.getPropertyPath().toString(), error.getMessage()))
-                .collect(Collectors.toList());
+                .toList();
 
         return ResponseEntity.badRequest().body(new ValidationErrorResponse(400, "Constraint violation", errors));
     }
