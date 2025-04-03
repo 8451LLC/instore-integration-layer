@@ -1,6 +1,5 @@
 package com.e451.instoreintegrationlayer.webhook.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.UUID;
@@ -13,8 +12,6 @@ public class AgencyDto {
     @UUID
     private String id;
 
-    @NotBlank
-    private String name;
-
+    @NotNull(message = "Is Agency billed cannot be null")
     private Boolean isBilled;
 }

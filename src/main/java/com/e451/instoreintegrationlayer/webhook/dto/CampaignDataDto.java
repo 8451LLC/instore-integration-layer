@@ -11,18 +11,14 @@ import java.util.List;
 @Data
 public class CampaignDataDto {
 
-//    @NotBlank
-//    private String barrowsCampaignId;
-
     @NotBlank
     private String name;
 
-    @Valid
-    @NotNull
-    private EntityDto account;
+    @NotBlank(message = "Account ID is required")
+    private String accountId;
 
-    @NotEmpty(message = "At least one brand is required")
-    private List<@Valid EntityDto> brands;
+    @NotEmpty(message = "At least one brand ID is required")
+    private List<@NotBlank String> brandIds;
 
     @NotNull(message = "isAgencyInvolved must not be null")
     // Not Using primitive type - can't tell if client omitted it or intentionally set it to false
@@ -47,13 +43,12 @@ public class CampaignDataDto {
     private String insertionOrder;
     private String purchaseOrder;
 
+    @NotEmpty(message = "Salesforce Project Number is required")
+    private String sfPrjId;
+
     @NotNull
     @Size(min = 2, message = "At least two touch-points are required")
     private List<@Valid TouchpointDto> touchpoints;
-
-    @Valid
-    @NotNull
-    private DimensionsDto targets;
 
     @NotBlank(message = "Status is required")
     private String status;
@@ -65,7 +60,7 @@ public class CampaignDataDto {
     @AssertTrue(message = "Agency must be involved if isAgencyInvolved is true")
     public boolean validateAgencyPresence() {
         return !Boolean.TRUE.equals(isAgencyInvolved)
-                || (agency != null && StringUtils.hasText(agency.getId()) && StringUtils.hasText(agency.getName()));
+                || (agency != null && StringUtils.hasText(agency.getId()));
     }
 
     @AssertTrue(message = "CreativeTier must be provided if optInCreative is true")
